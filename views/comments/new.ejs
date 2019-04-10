@@ -1,0 +1,15 @@
+<% include ../partials/header.ejs %>
+
+<div class="container">
+    <h1 class="mt-4 mb-4">Add review to "<%= product.title %>"</h1>
+    <form class="ml-4" action="/products/<%= product._id %>/comments/" method="POST">
+        <div class="form-group">
+            <label>Review</label>
+            <input class="form-control" type="text" name="comment[text]" placeholder="Enter review">
+        </div>
+        <input type="submit" class="btn btn-primary">
+    </form>
+    <a class="m-4" href="/products/<%= product._id %>">Go Back</a>
+</div>
+
+<% include ../partials/footer.ejs %>

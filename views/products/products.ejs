@@ -1,0 +1,25 @@
+<% include ../partials/header.ejs %>
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4 ml-4">Products</h1>
+        <a class="btn btn-primary ml-4" href="/products/new">Upload Product</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <% products.forEach(function(product) { %>
+        <div class="col-md-3 col-sm-6">
+            <img src="<%= product.image %>" class="card-img-top campground_image" alt="Product Image">
+            <div class="card-body">
+                <h5 class="card-title"><%= product.title %></h5>
+                <strong class="price">Rs 125</strong>
+                <a href="/products/<%= product._id %>" class="btn btn-info float-right">Info</a>
+            </div>
+        </div>
+        <% }) %>
+    </div>
+</div>
+
+<% include ../partials/footer.ejs %>

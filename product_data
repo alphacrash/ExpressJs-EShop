@@ -1,0 +1,33 @@
+var data = [
+    {
+        name: "Apple Watch",
+        image: "https://www.apple.com/v/home/eb/images/promos/watch-series-4/series_4_spring__c1oad4ap3k6e_medium.jpg",
+        description: "More powerful, more colorful."
+    },
+    {
+        name: "iMac",
+        image: "https://www.apple.com/v/home/eb/images/promos/imac/imac__bpep5e0cb4oi_medium.jpg",
+        description: "Pretty. Freaking powerful."
+    },
+    {
+        name: "iPad Mini",
+        image: "https://www.apple.com/v/home/eb/images/promos/ipad-mini/ipad_mini_tile__c0jmap32olw2_medium.jpg",
+        description: "Mini just got mightier."
+    }
+]
+
+{
+    name: "iPad Air",
+    image: "https://www.apple.com/v/home/eb/images/heroes/ipad-air/ipad_air_hero__csmc7ugxq32a_mediumtall.jpg",
+    description: "iPad Air. Power isn’t just for the pros."
+},
+{
+    name: "iPhone XS",
+    image: "https://www.apple.com/v/home/eb/images/heroes/spring-iphone-xs/iphone_xs__cm637qa5dno2_mediumtall.jpg",
+    description: "iPhone XS. Largest Super Retina display. Fastest performance with A12 Bionic. Most secure facial authentication with Face ID. Breakthrough dual cameras with Depth Control. Learn more Buy. "
+},
+{
+    name: "iPhone XR",
+    image: "https://www.apple.com/v/home/eb/images/heroes/spring-iphone-xr/iphone_xr__b0z59ak0bqdy_mediumtall.jpg",
+    description: "iPhone XR. All-screen design. Longest battery life ever in an iPhone. Fastest performance. Studio-quality photos. Learn more Buy. "
+}
