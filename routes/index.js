@@ -4,6 +4,7 @@ var passport = require("passport");
 var User = require("../models/user");
 var Product = require("../models/product");
 var Cart = require("../models/cart");
+var Order = require("../models/order")
 var middlewareObj = require("../middleware");
 
 // Index Page
@@ -29,6 +30,22 @@ router.post("/search", function (req, res) {
     })
 })
 
+router.get("/orders", middlewareObj.isLoggedIn, function (req, res) {
+    Order.find({ user: { id: req.user._id, username: req.user.username } }, function (err, orders) {
+        if (err) {
+            req.flash("error", err.message);
+            res.redirect("back");
+        } else {
+            var cart;
+            orders.forEach(function (order) {
+                cart = new Cart(order.cart);
+                order.items = cart.generateArray();
+            })
+            res.render("account/orders", { orders })
+        }
+    })
+})
+
 router.get("/add-to-cart/:id", function (req, res) {
     var cart = new Cart(req.session.cart ? req.session.cart : {});
 
@@ -45,12 +62,52 @@ router.get("/add-to-cart/:id", function (req, res) {
     })
 })
 
-router.get("/shopping-cart", function (req, res) {
+router.get("/shopping-cart", middlewareObj.isLoggedIn, function (req, res) {
     if (!req.session.cart) {
         res.render("store/shopping-cart", { products: null })
     } else {
         var cart = new Cart(req.session.cart);
         res.render("store/shopping-cart", { products: cart.generateArray(), totalPrice: cart.totalPrice })
+    }
+})
+
+router.get("/checkout", middlewareObj.isLoggedIn, function (req, res) {
+    if (!req.session, cart) {
+        res.redirect("/shopping-cart")
+    } else {
+        var cart = new Cart(req.session.cart)
+        res.render("store/checkout", { total: cart.totalPrice })
+    }
+})
+
+router.post("/checkout", middlewareObj.isLoggedIn, function (req, res) {
+    if (!req.session.cart) {
+        res.redirect("/shopping-cart")
+    } else {
+        var cart = new Cart(req.session.cart)
+        var orderDetails = {
+            cart: cart,
+            address: req.body.address,
+            name: req.body.name,
+        }
+        Order.create(orderDetails, function (err, order) {
+            if (err) {
+                req.flash("error", err.message);
+                res.redirect("back")
+            } else {
+                order.user.id = req.user._id;
+                order.user.username = req.user.username;
+                order.save(function (err, result) {
+                    if (err) {
+                        res.redirect("back")
+                    } else {
+                        req.flash("success", "Successfully bought product!")
+                        req.session.cart = null;
+                        res.redirect("/")
+                    }
+                })
+            }
+        })
     }
 })
 
