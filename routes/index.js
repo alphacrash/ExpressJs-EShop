@@ -3,6 +3,7 @@ var router = express.Router();
 var passport = require("passport");
 var User = require("../models/user");
 var Product = require("../models/product");
+var Cart = require("../models/cart");
 var middlewareObj = require("../middleware");
 
 // Index Page
@@ -28,6 +29,31 @@ router.post("/search", function (req, res) {
     })
 })
 
+router.get("/add-to-cart/:id", function (req, res) {
+    var cart = new Cart(req.session.cart ? req.session.cart : {});
+
+    Product.findById(req.params.id, function (err, product) {
+        if (err) {
+            req.flash("error", err.message);
+            res.redirect("back");
+        } else {
+            cart.add(product, product._id);
+            req.session.cart = cart;
+            console.log(req.session.cart)
+            res.redirect("/");
+        }
+    })
+})
+
+router.get("/shopping-cart", function (req, res) {
+    if (!req.session.cart) {
+        res.render("store/shopping-cart", { products: null })
+    } else {
+        var cart = new Cart(req.session.cart);
+        res.render("store/shopping-cart", { products: cart.generateArray(), totalPrice: cart.totalPrice })
+    }
+})
+
 router.get("/register", function (req, res) {
     res.render("auth/register");
 });
@@ -37,7 +63,7 @@ router.post("/register", function (req, res) {
     User.register(newUser, req.body.password, function (err, user) {
         if (err) {
             req.flash("error", err.message);
-            return res.redirect("back");
+            res.redirect("back");
         } else {
             passport.authenticate("local")(req, res, function () {
                 req.flash("success", "Welcome to Express Blog");

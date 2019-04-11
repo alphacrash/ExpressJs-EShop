@@ -18,11 +18,12 @@ router.post("/", middlewareObj.isLoggedIn, function (req, res) {
         id: req.user._id,
         username: req.user.username
     };
-    var newProduct = { title: req.body.title, image: req.body.image, content: req.body.content, author: author }
+    var newProduct = { title: req.body.title, image: req.body.image, price: req.body.price, content: req.body.content, author: author }
 
     Product.create(newProduct, function (err, newlyCreated) {
         if (err) {
             req.flash("error", err.message);
+            res.redirect("/")
         } else {
             res.redirect("/products");
         }

@@ -1,0 +1,51 @@
+<% include ../partials/header.ejs %>
+
+<% if(!products) { %>
+<div class="row">
+    <div class="col">
+        <h2>No Items in Cart</h2>
+    </div>
+</div>
+<% } else { %>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <ul class="list-group">
+                <% products.forEach(function(product) { %>
+                <li class="list-group-item">
+                    <strong><%= product.item.title %></strong>
+                    <span class="badge badge-success"><%= product.price %></span>
+                    <span class="badge badge-success"><%= product.qty %></span>
+                    <div class="btn-group">
+                        <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+                            Action
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Reduce by 1</a></li>
+                            <li><a href="#">Remove all</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <% }) %>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <strong>Total: <%= totalPrice %></strong>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col">
+            <button type="button" class="btn btn-success">Checkout</button>
+        </div>
+    </div>
+</div>
+<% } %>
+
+
+
+<% include ../partials/footer.ejs %>

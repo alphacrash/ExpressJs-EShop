@@ -13,7 +13,7 @@
             <img src="<%= product.image %>" class="card-img-top campground_image" alt="Product Image">
             <div class="card-body">
                 <h5 class="card-title"><%= product.title %></h5>
-                <strong class="price">Rs 125</strong>
+                <strong class="price">Rs <%= product.price %></strong>
                 <a href="/products/<%= product._id %>" class="btn btn-info float-right">Info</a>
             </div>
         </div>

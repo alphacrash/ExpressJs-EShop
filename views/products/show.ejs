@@ -1,6 +1,5 @@
 <% include ../partials/header.ejs %>
 
-
 <div class="container bg-light">
     <div class="thumbnail">
         <img class="img-responsive m-4" id="detail_img" src="<%= product.image %>">
@@ -15,6 +14,7 @@
             <p>
                 <%- product.content %>
             </p>
+            <a href="/add-to-cart/<%= product._id %>" class="btn btn-danger float-right">Buy</a>
             <% if(currentUser && product.author.id.equals(currentUser._id)) { %> 
                 <a class="btn btn-warning" href="/products/<%= product._id %>/edit">Edit</a> 
                 <form id="delete-form" action="/products/<%= product._id %>?_method=DELETE" method="POST"> 

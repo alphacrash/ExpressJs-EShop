@@ -4,6 +4,7 @@ var productSchema = new mongoose.Schema({
     title: String,
     image: String,
     content: String,
+    price: Number,
     created: {
         type: Date,
         default: Date.now

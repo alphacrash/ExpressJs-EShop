@@ -43,15 +43,21 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#"><i class="fas fa-user-edit"></i> Account</a>
                         <a class="dropdown-item" href="#"><i class="fas fa-shipping-fast"></i> Orders</a>
-                        <a class="dropdown-item" href="/products/new"><i class="fas fa-check-circle"></i> Upload Product</a>
+                        <a class="dropdown-item" href="/products/new"><i class="fas fa-check-circle"></i> Upload
+                            Product</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="/products"><i class="fas fa-shopping-cart"></i> Cart</a>
-                </li>
                 <% } %>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/shopping-cart">
+                        <i class="fas fa-shopping-cart"></i> Cart
+                        <% if(session.cart) { %>
+                        <span class="badge badge-pill badge-light"><%= session.cart.totalQty %></span>
+                        <% } %>
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>
