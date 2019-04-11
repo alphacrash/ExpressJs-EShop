@@ -5,7 +5,10 @@ var express = require("express"),
     methodOverride = require("method-override"),
     passport = require("passport"),
     LocalStrategy = require("passport-local"),
-    User = require("./models/user"),
+    session = require("express-session")
+cookieParser = require("cookie-parser")
+
+var User = require("./models/user"),
     Product = require("./models/product"),
     Comment = require("./models/comment"),
     seedDB = require("./seed");
@@ -13,6 +16,8 @@ var express = require("express"),
 var indexRoutes = require("./routes/index"),
     productRoutes = require("./routes/products"),
     commentRoutes = require("./routes/comments");
+
+var MongoStore = require("connect-mongo")(session)
 
 mongoose.connect("mongodb://localhost/EShop");
 
@@ -26,10 +31,12 @@ app.use(flash());
 // seedDB();
 
 // PASSPORT CONFIGURATION
-app.use(require("express-session")({
+app.use(session({
     secret: "Winter is Coming",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    cookie: { maxAge: 180 * 60 * 1000 }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -42,6 +49,7 @@ app.use(function (req, res, next) {
     res.locals.currentUser = req.user;
     res.locals.error = req.flash("error");
     res.locals.success = req.flash("success");
+    res.locals.session = req.session;
     next();
 })
 

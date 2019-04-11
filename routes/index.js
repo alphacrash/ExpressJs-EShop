@@ -7,15 +7,26 @@ var middlewareObj = require("../middleware");
 
 // Index Page
 router.get("/", function (req, res) {
-    Product.find({}, function (err, allProducts) {
+    Product.find({}, function (err, products) {
         if (err) {
             req.flash("error", err.message);
             res.redirect("/");
         } else {
-            res.render("products/products", { products: allProducts });
+            res.render("products/products", { products });
         }
     });
 });
+
+router.post("/search", function (req, res) {
+    Product.find({ "title": { $regex: req.body.title, $options: 'i' } }, function (err, products) {
+        if (err) {
+            req.flash("error", err.message);
+            return res.redirect("back");
+        } else {
+            res.render("products/products", { products })
+        }
+    })
+})
 
 router.get("/register", function (req, res) {
     res.render("auth/register");
