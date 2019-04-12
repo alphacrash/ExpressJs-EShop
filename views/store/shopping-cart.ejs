@@ -1,51 +1,46 @@
 <% include ../partials/header.ejs %>
 
 <% if(!products) { %>
-<div class="row">
-    <div class="col">
-        <h2>No Items in Cart</h2>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col">
+            <h2>No Items in Cart</h2>
+        </div>
     </div>
 </div>
 <% } else { %>
-<div class="container">
+<div class="container mt-4">
     <div class="row">
         <div class="col">
-            <ul class="list-group">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted">Your cart</span>
+                <span class="badge badge-secondary badge-pill"><%= totalQty %></span>
+            </h4>
+            <ul class="list-group mb-3">
                 <% products.forEach(function(product) { %>
-                <li class="list-group-item">
-                    <strong><%= product.item.title %></strong>
-                    <span class="badge badge-success"><%= product.price %></span>
-                    <span class="badge badge-success"><%= product.qty %></span>
-                    <div class="btn-group">
-                        <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
-                            Action
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Reduce by 1</a></li>
-                            <li><a href="#">Remove all</a></li>
-                        </ul>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0"><%= product.item.title %></h6>
+                        <small class="text-muted">Quantity <span class="badge badge-success"><%= product.qty %></span>
+                        </small>
                     </div>
+                    <a class="text-danger" href="#">Remove</a>
+                    <span class="text-muted">INR <%= product.price %></span>
                 </li>
                 <% }) %>
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>Total (INR)</span>
+                    <strong>INR <%= totalPrice %></strong>
+                </li>
             </ul>
         </div>
     </div>
-
     <div class="row">
         <div class="col">
-            <strong>Total: <%= totalPrice %></strong>
-        </div>
-    </div>
-    <hr />
-    <div class="row">
-        <div class="col">
-           <a class="btn btn-success" href="/checkout">Checkout</a>
+            <a class="btn btn-success" href="/checkout">Checkout</a>
         </div>
     </div>
 </div>
 <% } %>
-
-
 
 <% include ../partials/footer.ejs %>

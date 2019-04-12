@@ -56,7 +56,6 @@ router.get("/add-to-cart/:id", function (req, res) {
         } else {
             cart.add(product, product._id);
             req.session.cart = cart;
-            console.log(req.session.cart)
             res.redirect("/");
         }
     })
@@ -67,7 +66,7 @@ router.get("/shopping-cart", middlewareObj.isLoggedIn, function (req, res) {
         res.render("store/shopping-cart", { products: null })
     } else {
         var cart = new Cart(req.session.cart);
-        res.render("store/shopping-cart", { products: cart.generateArray(), totalPrice: cart.totalPrice })
+        res.render("store/shopping-cart", { products: cart.generateArray(), totalPrice: cart.totalPrice, totalQty: cart.totalQty })
     }
 })
 
