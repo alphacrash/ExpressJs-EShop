@@ -19,8 +19,9 @@ var indexRoutes = require("./routes/index"),
 
 var MongoStore = require("connect-mongo")(session)
 
-// mongoose.connect("mongodb://localhost/EShop");
-mongoose.connect(process.env.DATABASEURL)
+var url = process.env.DATABASEURL || "mongodb://localhost/EShop"
+
+mongoose.connect(url)
 
 var app = express();
 
@@ -59,6 +60,10 @@ app.use("/products", productRoutes);
 app.use("/products/:id/comments/", commentRoutes);
 
 // SERVER
-app.listen(process.env.PORT, process.env.IP, function () {
+// app.listen(process.env.PORT, process.env.IP, function () {
+//     console.log("Server is running...");
+// });
+
+app.listen(3000, function () {
     console.log("Server is running...");
 });
