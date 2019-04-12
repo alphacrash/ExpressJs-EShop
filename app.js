@@ -19,7 +19,8 @@ var indexRoutes = require("./routes/index"),
 
 var MongoStore = require("connect-mongo")(session)
 
-mongoose.connect("mongodb://localhost/EShop");
+// mongoose.connect("mongodb://localhost/EShop");
+mongoose.connect("mongodb://alpha:hello123@ds135726.mlab.com:35726/eshop")
 
 var app = express();
 
@@ -58,6 +59,6 @@ app.use("/products", productRoutes);
 app.use("/products/:id/comments/", commentRoutes);
 
 // SERVER
-app.listen(3000, function () {
+app.listen(process.env.PORT, process.env.IP, function () {
     console.log("Server is running...");
 });
