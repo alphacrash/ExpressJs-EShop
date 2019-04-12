@@ -1,6 +1,6 @@
 <% include ../partials/header.ejs %>
 
-<% if(!products) { %>
+<% if(!totalQty) { %>
 <div class="container mt-4">
     <div class="row">
         <div class="col">
@@ -24,7 +24,7 @@
                         <small class="text-muted">Quantity <span class="badge badge-success"><%= product.qty %></span>
                         </small>
                     </div>
-                    <a class="text-danger" href="#">Remove</a>
+                    <a class="text-danger" href="/remove/<%= product.item._id %>">Remove</a>
                     <span class="text-muted">INR <%= product.price %></span>
                 </li>
                 <% }) %>

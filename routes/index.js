@@ -113,9 +113,18 @@ router.get("/add-to-cart/:id", function (req, res) {
         } else {
             cart.add(product, product._id)
             req.session.cart = cart
+            req.flash("success", "Item successfully added to the cart.")
             res.redirect("/")
         }
     })
+})
+
+router.get("/remove/:id", function (req, res) {
+    var cart = new Cart(req.session.cart ? req.session.cart : {})
+
+    cart.reduceByOne(req.params.id)
+    req.session.cart = cart;
+    res.redirect("/shopping-cart")
 })
 
 router.get("/shopping-cart", middlewareObj.isLoggedIn, function (req, res) {
