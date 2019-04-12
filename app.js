@@ -20,7 +20,7 @@ var indexRoutes = require("./routes/index"),
 var MongoStore = require("connect-mongo")(session)
 
 // mongoose.connect("mongodb://localhost/EShop");
-mongoose.connect("mongodb://alpha:hello123@ds135726.mlab.com:35726/eshop")
+mongoose.connect(process.env.DATABASEURL)
 
 var app = express();
 
