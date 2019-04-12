@@ -9,25 +9,47 @@ var middlewareObj = require("../middleware")
 
 // Index Page
 router.get("/", function (req, res) {
-    Product.find({}, function (err, products) {
-        if (err) {
-            req.flash("error", err.message)
-            res.redirect("/")
-        } else {
-            res.render("products/products", { products })
-        }
-    })
+    if (req.isAuthenticated()) {
+        Product.find({ "author.id": { "$ne": req.user._id } }, function (err, products) {
+            if (err) {
+                req.flash("error", err.message)
+                res.redirect("/")
+            } else {
+                res.render("products/products", { products })
+            }
+        })
+    } else {
+        Product.find({}, function (err, products) {
+            if (err) {
+                req.flash("error", err.message)
+                res.redirect("/")
+            } else {
+                res.render("products/products", { products })
+            }
+        })
+    }
 })
 
 router.post("/search", function (req, res) {
-    Product.find({ "title": { $regex: req.body.title, $options: 'i' } }, function (err, products) {
-        if (err) {
-            req.flash("error", err.message)
-            return res.redirect("back")
-        } else {
-            res.render("products/products", { products })
-        }
-    })
+    if (req.isAuthenticated()) {
+        Product.find({ "author.id": { "$ne": req.user._id }, "title": { $regex: req.body.title, $options: 'i' } }, function (err, products) {
+            if (err) {
+                req.flash("error", err.message)
+                return res.redirect("back")
+            } else {
+                res.render("products/products", { products })
+            }
+        })
+    } else {
+        Product.find({ "title": { $regex: req.body.title, $options: 'i' } }, function (err, products) {
+            if (err) {
+                req.flash("error", err.message)
+                return res.redirect("back")
+            } else {
+                res.render("products/products", { products })
+            }
+        })
+    }
 })
 
 router.get("/orders", middlewareObj.isLoggedIn, function (req, res) {
@@ -44,6 +66,41 @@ router.get("/orders", middlewareObj.isLoggedIn, function (req, res) {
             res.render("account/orders", { orders })
         }
     })
+})
+
+router.get("/order-history", function (req, res) {
+    Order.find({}, function (err, orders) {
+        if (err) {
+            req.flash("error", err.message)
+            res.redirect("back")
+        } else {
+            var cart
+            orders.forEach(function (order) {
+                cart = new Cart(order.cart)
+                order.items = cart.generateArray()
+            })
+            res.render("store/order-history", { orders })
+        }
+    })
+})
+
+router.get("/sellers", function (req, res) {
+    Product.find({}, function (err, products) {
+        if (err) {
+            req.flash("error", err.message)
+            res.redirect("back")
+        } else {
+            res.render("account/sellers", { products })
+        }
+    })
+})
+
+router.get("/team", function (req, res) {
+    res.render("account/team")
+})
+
+router.get("/help", function (req, res) {
+    res.render("account/help")
 })
 
 router.get("/add-to-cart/:id", function (req, res) {
