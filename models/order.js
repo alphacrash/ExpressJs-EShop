@@ -1,4 +1,4 @@
-var mongoose = require("mongoose");
+var mongoose = require("mongoose")
 
 var orderSchema = new mongoose.Schema({
     user: {
@@ -20,6 +20,6 @@ var orderSchema = new mongoose.Schema({
         type: String,
         required: true
     }
-});
+})
 
-module.exports = mongoose.model("Order", orderSchema);
+module.exports = mongoose.model("Order", orderSchema)

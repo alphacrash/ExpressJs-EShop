@@ -8,9 +8,7 @@
             <p class="float-right">
                 <small class="text-muted">Added <%= product.created.toDateString() %></small>
             </p>
-            <p>
-                <em>Submitted By <%= product.author.username %></em>
-            </p>
+            <p class="text-muted">Submitted By <%= product.author.username %></p>
             <p>
                 <%- product.content %>
             </p>

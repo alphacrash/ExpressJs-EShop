@@ -1,4 +1,4 @@
-var mongoose = require("mongoose");
+var mongoose = require("mongoose")
 
 var productSchema = new mongoose.Schema({
     title: String,
@@ -22,6 +22,6 @@ var productSchema = new mongoose.Schema({
         },
         username: String
     }
-});
+})
 
-module.exports = mongoose.model("Product", productSchema);
+module.exports = mongoose.model("Product", productSchema)
