@@ -1,6 +1,7 @@
 var express = require("express")
 var router = express.Router()
 var Product = require("../models/product")
+var Order = require("../models/order")
 var middlewareObj = require("../middleware")
 
 router.get("/", middlewareObj.checkAdmin, (req, res) => {
@@ -32,6 +33,17 @@ router.post("/:id", middlewareObj.checkAdmin, (req, res) => {
             res.redirect("/admin")
         } else {
             res.redirect("/admin")
+        }
+    })
+})
+
+router.get("/order/:id", middlewareObj.checkAdmin, (req, res) => {
+    Order.findByIdAndUpdate(req.params.id, { delivered: true }, function (err, updatedOrder) {
+        if (err) {
+            req.flash("error", err.message)
+            res.redirect("/admin")
+        } else {
+            res.redirect("/order-history")
         }
     })
 })

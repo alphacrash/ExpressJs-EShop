@@ -19,6 +19,10 @@ var orderSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
+    },
+    delivered: {
+        type: Boolean,
+        default: false
     }
 })
 
