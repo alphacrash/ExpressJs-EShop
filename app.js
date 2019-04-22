@@ -30,7 +30,7 @@ app.use(express.static(__dirname + "/public"))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride("_method"))
 app.use(flash())
-// seedDB()
+seedDB()
 
 // PASSPORT CONFIGURATION
 app.use(session({
@@ -60,10 +60,10 @@ app.use("/products", productRoutes)
 app.use("/products/:id/comments/", commentRoutes)
 
 // SERVER
-app.listen(process.env.PORT, process.env.IP, function () {
-    console.log("Server is running.")
-})
-
-// app.listen(3000, function () {
-//     console.log("Server is running...")
+// app.listen(process.env.PORT, process.env.IP, function () {
+//     console.log("Server is running.")
 // })
+
+app.listen(3000, function () {
+    console.log("Server is running...")
+})
