@@ -15,7 +15,7 @@ middlewareObj.checkProductOwnership = function (req, res, next) {
     if (req.isAuthenticated()) {
         Product.findById(req.params.id, function (err, foundProduct) {
             if (err) {
-                req.flash("error", err.message) 
+                req.flash("error", err.message)
                 res.redirect("/products")
             } else {
                 if (foundProduct.author.id.equals(req.user._id)) {
@@ -35,7 +35,7 @@ middlewareObj.checkCommentOwnership = function (req, res, next) {
     if (req.isAuthenticated()) {
         Comment.findById(req.params.comment_id, function (err, foundComment) {
             if (err) {
-                req.flash("error", err.message) 
+                req.flash("error", err.message)
                 res.redirect("back")
             } else {
                 if (foundComment.author.id.equals(req.user.id)) {
@@ -45,6 +45,20 @@ middlewareObj.checkCommentOwnership = function (req, res, next) {
                 }
             }
         })
+    } else {
+        req.flash("error", "You need to be logged in to do that!")
+        res.redirect("back")
+    }
+}
+
+middlewareObj.checkAdmin = function (req, res, next) {
+    if (req.isAuthenticated()) {
+        if (req.user.username == "admin") {
+            next()
+        }
+        else {
+            res.redirect("back")
+        }
     } else {
         req.flash("error", "You need to be logged in to do that!")
         res.redirect("back")

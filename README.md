@@ -1,4 +1,4 @@
-# EShop
+# ReShop
 
 It is an ecommerce service.
 

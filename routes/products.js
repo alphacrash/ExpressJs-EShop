@@ -23,9 +23,9 @@ router.post("/", middlewareObj.isLoggedIn, function (req, res) {
     Product.create(newProduct, function (err, newlyCreated) {
         if (err) {
             req.flash("error", err.message)
-            res.redirect("/")
         } else {
-            res.redirect("/products")
+            req.flash("success", "Product uploaded, admin review required.")
+            res.redirect("/")
         }
     })
 })

@@ -9,17 +9,10 @@ var middlewareObj = require("../middleware")
 
 // Index Page
 router.get("/", function (req, res) {
-    if (req.isAuthenticated()) {
-        Product.find({ "author.id": { "$ne": req.user._id } }, function (err, products) {
-            if (err) {
-                req.flash("error", err.message)
-                res.redirect("/")
-            } else {
-                res.render("products/products", { products })
-            }
-        })
+    if (req.isAuthenticated() && req.user.username == 'admin') {
+        res.redirect("/admin")
     } else {
-        Product.find({}, function (err, products) {
+        Product.find({ "condition": { "$ne": "Default" } }, function (err, products) {
             if (err) {
                 req.flash("error", err.message)
                 res.redirect("/")
@@ -32,7 +25,7 @@ router.get("/", function (req, res) {
 
 router.post("/search", function (req, res) {
     if (req.isAuthenticated()) {
-        Product.find({ "author.id": { "$ne": req.user._id }, "title": { $regex: req.body.title, $options: 'i' } }, function (err, products) {
+        Product.find({ "title": { $regex: req.body.title, $options: 'i' }, "condition": { "$ne": "Default" } }, function (err, products) {
             if (err) {
                 req.flash("error", err.message)
                 return res.redirect("back")
@@ -41,7 +34,7 @@ router.post("/search", function (req, res) {
             }
         })
     } else {
-        Product.find({ "title": { $regex: req.body.title, $options: 'i' } }, function (err, products) {
+        Product.find({ "title": { $regex: req.body.title, $options: 'i' }, "condition": { "$ne": "Default" } }, function (err, products) {
             if (err) {
                 req.flash("error", err.message)
                 return res.redirect("back")

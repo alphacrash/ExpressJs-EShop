@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ReShop</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/css/main.css">
+    <link rel="icon" type="image/png" href="icon/favicon.png">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">ReShop</a>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav pull-right ml-auto">
+                <li class="nav-item">
+                    <a class="btn btn-warning mr-2" href="/order-history">Order History</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-danger" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <% if(error && error.length > 0) { %>
+        <div class="alert alert-danger" role="alert">
+            <%= error %>
+        </div>
+        <% } %>
+        <% if(success && success.length > 0) { %>
+        <div class="alert alert-success" role="alert">
+            <%= success %>
+        </div>
+        <% } %>
+    </div>
+
+    <div class="container bg-light">
+        <div class="thumbnail">
+            <img class="img-responsive m-4" id="detail_img" src="<%= product.image %>">
+            <div class="caption-full m-4">
+                <h3><%= product.title %></h3>
+                <p class="float-right">
+                    <small class="text-muted">Added <%= product.created.toDateString() %></small>
+                </p>
+                <p class="text-muted">Submitted By <%= product.author.username %></p>
+                <p>
+                    <%- product.content %>
+                </p>
+
+                <button class="btn btn-dark"><%= product.condition %></a>
+            </div>
+        </div>
+        <div class="pb-4"></div>
+    </div>
+
+    <% include ../partials/footer.ejs %>

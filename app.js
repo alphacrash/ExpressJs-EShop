@@ -15,11 +15,12 @@ var User = require("./models/user"),
 
 var indexRoutes = require("./routes/index"),
     productRoutes = require("./routes/products"),
+    adminRoutes = require("./routes/admin"),
     commentRoutes = require("./routes/comments")
 
 var MongoStore = require("connect-mongo")(session)
 
-var url = process.env.DATABASEURL || "mongodb://localhost/EShop"
+var url = process.env.DATABASEURL || "mongodb://localhost/ReShop"
 
 mongoose.connect(url)
 
@@ -58,6 +59,7 @@ app.use(function (req, res, next) {
 app.use("/", indexRoutes)
 app.use("/products", productRoutes)
 app.use("/products/:id/comments/", commentRoutes)
+app.use("/admin", adminRoutes)
 
 // SERVER
 // app.listen(process.env.PORT, process.env.IP, function () {

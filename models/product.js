@@ -1,10 +1,26 @@
 var mongoose = require("mongoose")
 
 var productSchema = new mongoose.Schema({
-    title: String,
-    image: String,
-    content: String,
-    price: Number,
+    title: {
+        type: String,
+        required: true
+    },
+    image: {
+        type: String,
+        required: true
+    },
+    content: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+    condition: {
+        type: String,
+        default: "Default"
+    },
     created: {
         type: Date,
         default: Date.now
