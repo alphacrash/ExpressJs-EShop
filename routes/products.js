@@ -42,13 +42,13 @@ router.get("/:id", function (req, res) {
 })
 
 // Edit
-router.get("/:id/edit", middlewareObj.checkProductOwnership, function (req, res) {
+router.get("/:id/edit", middlewareObj.checkAdmin, function (req, res) {
     Product.findById(req.params.id, function (err, foundProduct) {
         res.render("products/edit", { product: foundProduct })
     })
 })
 
-router.put("/:id", middlewareObj.checkProductOwnership, function (req, res) {
+router.put("/:id", middlewareObj.checkAdmin, function (req, res) {
     Product.findByIdAndUpdate(req.params.id, req.body.product, function (err, foundProduct) {
         if (err) {
             req.flash("error", err.message)
