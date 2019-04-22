@@ -32,6 +32,11 @@
                         <strong class="text-muted">Total (INR)</strong>
                         <span class="text-success">INR <%= order.cart.totalPrice %></span>
                     </li>
+                    <% if(order.delivered) { %>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span class="text-muted"><i class="fas fa-truck"></i>Your order has been delivered.</span>
+                    </li>
+                    <% }%>
                 </ul>
             </div>
             <% }) %>
