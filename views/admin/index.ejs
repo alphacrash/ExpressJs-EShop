@@ -78,6 +78,12 @@
                                 <input type="submit" class="btn btn-primary col-md-2" value="Change">
                             </form>
                         </p>
+                        <p class="card-text">
+                            <form action="/products/<%= product._id %>?_method=DELETE"
+                                method="POST">
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
+                        </p>
                     </div>
                 </div>
                 <% }) %>

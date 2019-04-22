@@ -60,7 +60,7 @@ router.put("/:id", middlewareObj.checkProductOwnership, function (req, res) {
 })
 
 // Delete
-router.delete("/:id", middlewareObj.checkProductOwnership, function (req, res) {
+router.delete("/:id", middlewareObj.checkAdmin, function (req, res) {
     Product.findByIdAndRemove(req.params.id, function (err) {
         if (err) {
             req.flash("error", err.message)
