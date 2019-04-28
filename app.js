@@ -5,8 +5,8 @@ var express = require("express"),
     methodOverride = require("method-override"),
     passport = require("passport"),
     LocalStrategy = require("passport-local"),
-    session = require("express-session")
-cookieParser = require("cookie-parser")
+    session = require("express-session"),
+    cookieParser = require("cookie-parser")
 
 var User = require("./models/user"),
     Product = require("./models/product"),
@@ -31,7 +31,7 @@ app.use(express.static(__dirname + "/public"))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride("_method"))
 app.use(flash())
-seedDB()
+// seedDB()
 
 // PASSPORT CONFIGURATION
 app.use(session({
