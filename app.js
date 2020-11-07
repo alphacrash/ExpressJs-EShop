@@ -31,7 +31,7 @@ app.use(express.static(__dirname + "/public"))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride("_method"))
 app.use(flash())
-seedDB()
+// seedDB()
 
 // PASSPORT CONFIGURATION
 app.use(session({
