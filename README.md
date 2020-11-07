@@ -1,6 +1,8 @@
 # ReShop
 
-It is an ecommerce service.
+An ecommerce website made with express, passport and mongodb which allows its user to register, buy and sell products.
+
+https://alphacrash-eshop.herokuapp.com/
 
 ## Requirements:
 
